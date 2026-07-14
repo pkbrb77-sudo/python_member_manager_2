@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보 관리 서비스</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===============================================
+         1. 인증 화면 (로그인/회원가입)
+         =============================================== -->
+    <div id="auth-container" class="login-container">
+        <div class="avatar-container">
+            <svg class="avatar-icon" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+            </svg>
+        </div>
+
+        <div class="input-group">
+            <svg class="input-icon" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <input type="text" id="username" placeholder="Username" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <svg class="input-icon" viewBox="0 0 24 24">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <input type="password" id="password" placeholder="••••••••••••">
+        </div>
+
+        <div class="options-group">
+            <label class="remember-me">
+                <input type="checkbox" checked> Remember me
+            </label>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+
+        <div class="button-group">
+            <button type="button" id="login-btn" class="auth-btn type-login">LOGIN</button>
+            <button type="button" id="signup-btn" class="auth-btn type-signup">SIGN UP</button>
+        </div>
+    </div>
+
+    <!-- ===============================================
+         2. 회원정보 관리 메인 화면 (로그인/회원가입 후 전환)
+         =============================================== -->
+    <div id="app-container" style="display: none;">
+        <div class="app-wrapper">
+            <!-- 헤더 -->
+            <header class="app-header">
+                <h1>📇 회원정보 관리 시스템</h1>
+                <button id="logout-btn" class="logout-btn">로그아웃</button>
+            </header>
+
+            <!-- 메인 콘텐츠 -->
+            <main class="app-main">
+                <!-- 왼쪽 패널: 정보 입력 폼 -->
+                <aside class="add-contact-panel">
+                    <h2>회원정보 등록</h2>
+                    <form id="add-contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">이름 (1~5자 한글)</label>
+                            <input type="text" id="contact-name" placeholder="예: 김철수" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-phone">전화번호</label>
+                            <input type="tel" id="contact-phone" placeholder="01012345678" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-address">주소 (..시로 끝남)</label>
+                            <input type="text" id="contact-address" placeholder="예: 서울시" required>
+                        </div>
+
+                        <!-- 요구사항 반영: 카테고리를 '관계' 레이블로 맵핑 -->
+                        <div class="form-group">
+                            <label for="category-select">관계</label>
+                            <select id="category-select" required>
+                                <option value="">선택해주세요</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="submit-btn">+ 추가하기</button>
+                    </form>
+                </aside>
+
+                <!-- 오른쪽 패널: 회원목록 -->
+                <section class="contacts-panel">
+                    <h2>회원목록</h2>
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="이름 또는 전화번호로 검색...">
+                    </div>
+                    <div id="contact-list" class="contact-list">
+                        <!-- 입력한 정보값 카드가 동적으로 여기에 삽입됨 -->
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
