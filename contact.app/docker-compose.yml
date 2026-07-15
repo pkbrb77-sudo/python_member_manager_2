@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 데이터베이스 서비스
+  postgres:
+    image: postgres:15-alpine
+    container_name: contact_app_db
+    environment:
+      POSTGRES_USER: contact_user
+      POSTGRES_PASSWORD: contact_pass
+      POSTGRES_DB: contact_db
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U contact_user -d contact_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - contact_network
+
+  # FastAPI 백엔드 서비스
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: contact_app_backend
+    environment:
+      DATABASE_URL: postgresql://contact_user:contact_pass@postgres:5432/contact_db
+      APP_ENV: development
+    ports:
+      - "8001:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - ./frontend:/app/frontend
+    working_dir: /app
+    networks:
+      - contact_network
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # pgAdmin - PostgreSQL 웹 관리 도구
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: contact_app_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - contact_network
+
+volumes:
+  postgres_data:
+
+networks:
+  contact_network:
+    driver: bridge

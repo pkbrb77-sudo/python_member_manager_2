@@ -1,0 +1,561 @@
+/* ==========================================================================
+   연락처 관리 웹 서비스 - 프론트엔드 스타일시트 (styles.css)
+   ========================================================================== */
+
+/* 1. Reset & 전역 변수 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+    --bg-color: #1a1a1a;
+    --box-bg-start: #434343;
+    --box-bg-end: #000000;
+    --border-color: rgba(255, 255, 255, 0.5);
+    --border-hover: rgba(255, 255, 255, 0.9);
+    --text-primary: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --text-placeholder: rgba(255, 255, 255, 0.4);
+    --transition-speed: 0.3s;
+}
+
+/* 2. 레이아웃 - 창 크기에 관계없이 화면 정중앙에 고정 */
+body {
+    background-color: var(--bg-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 3. 로그인 컨테이너 박스 (그라데이션 및 그림자 효과) */
+.login-container {
+    width: 100%;
+    max-width: 440px;
+    min-height: 480px;
+    background: linear-gradient(135deg, var(--box-bg-start) 0%, var(--box-bg-end) 100%);
+    border-radius: 12px;
+    padding: 40px 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* 4. 상단 원형 아바타 영역 */
+.avatar-container {
+    width: 80px;
+    height: 80px;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.avatar-icon {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.8);
+    stroke-width: 1.5;
+}
+
+/* 5. 대괄호 [ ] 형태의 독특한 인풋 그룹 디자인 */
+.input-group {
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+    border-left: 1.5px solid var(--border-color);
+    border-right: 1.5px solid var(--border-color);
+    border-bottom: 1.5px solid var(--border-color);
+    padding: 0;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    transition: border-color var(--transition-speed) ease;
+}
+
+/* 대괄호 모양을 완성하기 위해 위쪽 좌/우 테두리선 분할 생성 */
+.input-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    border-top: 1.5px solid var(--border-color);
+    transition: border-color var(--transition-speed) ease;
+}
+
+.input-group::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    border-top: 1.5px solid var(--border-color);
+    transition: border-color var(--transition-speed) ease;
+}
+
+/* 인풋 박스 포커스(마우스 클릭) 시 하이라이트 효과 */
+.input-group:focus-within {
+    border-color: var(--border-hover);
+}
+
+.input-group:focus-within::before,
+.input-group:focus-within::after {
+    border-top-color: var(--border-hover);
+}
+
+/* 인풋 내부 아이콘 */
+.input-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 12px;
+    margin-right: 12px;
+    fill: var(--text-muted);
+}
+
+/* 순수 인풋 필드 스타일링 (기본 브라우저 테두리 제거) */
+.input-group input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 14px;
+    padding-right: 12px;
+}
+
+.input-group input::placeholder {
+    color: var(--text-placeholder);
+}
+
+/* 6. 하단 체크박스 및 링크 영역 */
+.options-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    font-size: 11px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+}
+
+.remember-me input {
+    margin-right: 6px;
+    accent-color: var(--text-primary);
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-style: italic;
+    transition: color var(--transition-speed) ease;
+}
+
+.forgot-password:hover {
+    color: var(--text-primary);
+}
+
+/* 7. 서브밋 버튼 (화이트 보더 라인 스타일 및 호버 액션) */
+.login-btn {
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 1.5px solid var(--text-primary);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+/* 마우스 호버 시 배경색 반전 및 폰트 컬러 전환 */
+.login-btn:hover {
+    background: var(--text-primary);
+    color: #000000;
+}
+/* 버튼들을 가로로 나란히 배치하는 컨테이너 */
+.button-group {
+    display: flex;
+    gap: 12px;         /* 버튼 사이의 간격 */
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 공통 버튼 스타일 (기존 LOGIN 버튼 스타일을 계승) */
+.auth-btn {
+    flex: 1;           /* 정확히 50%씩 공간을 똑같이 나누어 가집니다 */
+    padding: 12px 0;
+    font-size: 0.95rem;
+    font-weight: bold;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+/* 로그인 버튼: 기존 흰색 테두리 스타일 유지 */
+.type-login {
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+.type-login:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* 회원가입 버튼: 대칭을 이루되 구분을 위해 은은한 라인 포인트 적용 */
+.type-signup {
+    color: #aaaaaa;
+    border: 1px solid #aaaaaa;
+}
+.type-signup:hover {
+    color: rgba(248, 227, 227, 0.74);
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1); /* 살짝 밝아지는 효과 */
+}
+
+/* ==========================================================================
+   8. 주소록 관리 화면 (로그인 후) 스타일
+   ========================================================================== */
+
+/* 앱 전체 래퍼 */
+.app-wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+}
+
+/* 헤더 */
+.app-header {
+    background: linear-gradient(135deg, var(--box-bg-start) 0%, var(--box-bg-end) 100%);
+    color: var(--text-primary);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    color: var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 0, 0, 0.15);
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+/* 메인 콘텐츠 (2 컬럼 레이아웃) */
+.app-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* 왼쪽 패널: 연락처 추가 폼 */
+.add-contact-panel {
+    flex: 0 0 350px;
+    background: linear-gradient(135deg, var(--box-bg-start) 0%, var(--box-bg-end) 100%);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.add-contact-panel h2 {
+    color: var(--text-primary);
+    font-size: 20px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+/* 폼 그룹 */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-contact-panel .form-group label {
+    color: #888888 !important;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    padding: 12px 14px;
+    font-size: 14px;
+    transition: all var(--transition-speed) ease;
+}
+
+/* 입력창(input)과 선택박스(select)의 글씨색을 검정색으로 변경 */
+.add-contact-panel input,
+.add-contact-panel select,
+.add-contact-panel option {
+    color: #000000 !important; /* 글씨색을 검정색으로 강제 지정 */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--border-hover);
+    background: rgba(212, 210, 216, 0.959);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.add-contact-panel .form-group input::placeholder {
+    color: #000000 !important;
+}
+
+/* 제출 버튼 */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* 오른쪽 패널: 연락처 목록 */
+.contacts-panel {
+    flex: 1;
+    background: linear-gradient(135deg, var(--box-bg-start) 0%, var(--box-bg-end) 100%);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.contacts-panel h2 {
+    color: var(--text-primary);
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* 검색바 */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: all var(--transition-speed) ease;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--border-hover);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.search-bar input::placeholder {
+    color: var(--text-placeholder);
+}
+
+/* 연락처 목록 */
+.contact-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 8px;
+}
+
+/* 스크롤바 스타일 */
+.contact-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.contact-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.contact-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.contact-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 연락처 카드 */
+.contact-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+}
+
+.contact-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-hover);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-info h3 {
+    color: var(--text-primary);
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.3);
+    color: #60a5fa;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid rgba(37, 99, 235, 0.5);
+}
+
+.contact-info p {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.contact-info p:last-child {
+    margin-bottom: 0;
+}
+
+/* 카드 액션 버튼 */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 16px;
+}
+
+.delete-contact-btn {
+    padding: 8px 14px;
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.delete-contact-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+}
+
+.edit-contact-btn {
+    padding: 8px 14px;
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.5);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.edit-contact-btn:hover {
+    background: rgba(234, 179, 8, 0.3);
+    border-color: #eab308;
+}
+
+/* 빈 메시지 */
+.empty-msg {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+    font-style: italic;
+}
